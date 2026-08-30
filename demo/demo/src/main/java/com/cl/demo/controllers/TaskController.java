@@ -15,4 +15,14 @@ import java.util.UUID;
 @RestController
 @RequestMapping("task")
 public class TaskController {
+
+    @Autowired
+    private TaskService taskService;
+
+
+    @PostMapping("/add")
+    public Map<String, String> addTask(@RequestBody TaskCreateRequest req) {
+        return taskService.addTask(req);
+    }
+
 }
