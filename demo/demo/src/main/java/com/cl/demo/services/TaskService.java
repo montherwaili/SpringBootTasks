@@ -2,9 +2,10 @@ package com.cl.demo.services;
 
 import com.cl.demo.DemoApplication;
 import com.cl.demo.entities.Task;
+import com.cl.demo.entities.TaskStatus;
 import com.cl.demo.requestobjects.TaskCreateRequest;
 import com.cl.demo.requestobjects.TaskUpdateRequest;
-import com.cl.demo.HelperUtils;
+import com.cl.demo.utils.HelperUtils;
 import org.springframework.stereotype.Service;
 import java.util.*;
 
@@ -33,7 +34,7 @@ public class TaskService {
         task.setDescription(req.getDescription());
         task.setDueDate(req.getDueDate());
         task.setStartDate(req.getStartDate());
-        task.setTaskStatus(req.getTaskStatus());
+        task.setTaskStatus(TaskStatus.valueOf(req.getTaskStatus()));
         task.setIsAssigned(req.getIsAssigned());
 
 
@@ -75,7 +76,7 @@ public class TaskService {
 
         task.setTitle(HelperUtils.compare(task.getTitle(), req.getTitleToUpdate()));
         task.setDescription(HelperUtils.compare(task.getDescription(), req.getDescriptionToUpdate()));
-        task.setTaskStatus(HelperUtils.compare(task.getTaskStatus(), req.getTaskStatusToUpdate()));
+        task.setTaskStatus((TaskStatus) HelperUtils.compare(task.getTaskStatus(), req.getTaskStatusToUpdate()));
         task.setDueDate(HelperUtils.compare(task.getDueDate(), req.getDueDateToUpdate()));
         task.setIsAssigned(HelperUtils.compare(task.getIsAssigned(), req.getIsAssignedToUpdate()));
 

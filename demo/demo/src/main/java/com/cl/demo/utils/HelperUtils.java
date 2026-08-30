@@ -2,13 +2,16 @@ package com.cl.demo.utils;
 
 public class HelperUtils {
 
-    public static String compare(String original, String update){
-/*        if(original.equals(update)){
-            return original;
-        } else {
-            return update;
-        }*/
 
-        return original.equals(update)? original: update;
+    public static <T> T compare(T oldVal, T newVal) {
+
+        if (newVal == null) {
+            return oldVal;
+        }
+
+        if (newVal instanceof String && ((String) newVal).trim().isEmpty()) {
+            return oldVal;
+        }
+        return newVal;
     }
 }

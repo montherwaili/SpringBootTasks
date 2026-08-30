@@ -27,7 +27,7 @@ public class TaskUpdateResponse {
         res.setTitle(task.getTitle());
         res.setDescription(task.getDescription());
         res.setTaskNumber(task.getTaskNumber());
-        res.setTaskStatus(task.getTaskStatus());
+        res.setTaskStatus(String.valueOf(task.getTaskStatus()));
         res.setDueDate(task.getDueDate() != null ? task.getDueDate().toString() : null);
         res.setIsAssigned(task.getIsAssigned());
         return res;
