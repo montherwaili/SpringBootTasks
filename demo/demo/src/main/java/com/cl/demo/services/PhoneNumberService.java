@@ -41,5 +41,16 @@ public class PhoneNumberService {
         }
         return null;
     }
+
+    public List<PhoneNumber> getAllPhoneNumbers() {
+        List<PhoneNumber> active = new ArrayList<>();
+        for (PhoneNumber p : DemoApplication.PhoneNumber_List) {
+            if (Boolean.TRUE.equals(p.getIsActive())) {
+                active.add(p);
+            }
+        }
+        return active;
+    }
+
     }
 }
