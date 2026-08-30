@@ -33,4 +33,10 @@ public class TaskController {
     }
 
 
+    @GetMapping("/getAll")
+    public List<TaskCreateResponse> getAllTasks() {
+        return TaskCreateResponse.convert(taskService.getAllTasks());
+    }
+
+
 }
