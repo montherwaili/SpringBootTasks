@@ -26,3 +26,10 @@ public class PhoneNumberController {
     }
 
 
+    @GetMapping("/getById")
+    public PhoneNumberCreateResponse getPhoneNumberById(@RequestParam UUID uuid) {
+        PhoneNumber pn = phoneNumberService.getPhoneNumberById(uuid);
+        return PhoneNumberCreateResponse.convert(pn);
+    }
+
+
