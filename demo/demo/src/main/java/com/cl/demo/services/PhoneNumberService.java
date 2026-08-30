@@ -65,5 +65,13 @@ public class PhoneNumberService {
         return p;
     }
 
+
+    public Boolean deleteById(UUID uuid) {
+        PhoneNumber p = getPhoneNumberById(uuid);
+        if (p != null) {
+            p.setIsActive(Boolean.FALSE);
+            return true;
+        }
+        return false;
     }
 }
