@@ -52,5 +52,18 @@ public class PhoneNumberService {
         return active;
     }
 
+
+    public PhoneNumber updatePhoneNumber(PhoneNumberUpdateRequest req) {
+        PhoneNumber p = getPhoneNumberById(req.getUuid());
+        if (p == null) return null;
+
+
+        p.setCountryCode(HelperUtils.compare(p.getCountryCode(), req.getCountryCodeToUpdate()));
+        p.setPhoneNumber(HelperUtils.compare(p.getPhoneNumber(), req.getPhoneNumberToUpdate()));
+
+        p.setUpdatedDate(new Date());
+        return p;
+    }
+
     }
 }
