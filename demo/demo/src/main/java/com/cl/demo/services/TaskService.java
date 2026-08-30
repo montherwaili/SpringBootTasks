@@ -42,5 +42,18 @@ public class TaskService {
         }
         return response;
     }
+
+
+    public Task getTaskById(UUID uuid) {
+        if (uuid == null) return null;
+        for (Task t : DemoApplication.Task_List) {
+
+            if (t.getId().equals(uuid) && Boolean.TRUE.equals(t.getIsActive())) {
+                return t;
+            }
+        }
+        return null;
+    }
+
     }
 }
