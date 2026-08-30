@@ -55,5 +55,17 @@ public class TaskService {
         return null;
     }
 
+
+    public List<Task> getAllTasks() {
+        List<Task> activeTasks = new ArrayList<>();
+        for (Task t : DemoApplication.Task_List) {
+
+            if (Boolean.TRUE.equals(t.getIsActive())) {
+                activeTasks.add(t);
+            }
+        }
+        return activeTasks;
+    }
+
     }
 }
