@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class TaskCreateResponse {
+public class TaskUpdateResponse {
     private String taskId;
     private String title;
     private String description;
@@ -17,13 +17,12 @@ public class TaskCreateResponse {
     private String dueDate;
     private Boolean isAssigned;
 
-
-    public static TaskCreateResponse convert(Task task) {
+    public static TaskUpdateResponse convert(Task task) {
         if (task == null || task.getId() == null) {
             return null;
         }
 
-        TaskCreateResponse res = new TaskCreateResponse();
+        TaskUpdateResponse res = new TaskUpdateResponse();
         res.setTaskId(task.getId().toString());
         res.setTitle(task.getTitle());
         res.setDescription(task.getDescription());
@@ -34,12 +33,12 @@ public class TaskCreateResponse {
         return res;
     }
 
-    public static List<TaskCreateResponse> convert(List<Task> tasks) {
-        List<TaskCreateResponse> list = new ArrayList<>();
+    public static List<TaskUpdateResponse> convert(List<Task> tasks) {
+        List<TaskUpdateResponse> list = new ArrayList<>();
         if (tasks == null) return list;
 
         for (Task t : tasks) {
-            TaskCreateResponse res = convert(t);
+            TaskUpdateResponse res = convert(t);
             if (res != null) {
                 list.add(res);
             }
