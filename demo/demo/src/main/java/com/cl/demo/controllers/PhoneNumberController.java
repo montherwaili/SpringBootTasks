@@ -19,3 +19,10 @@ public class PhoneNumberController {
     private PhoneNumberService phoneNumberService;
 
 
+    @PostMapping("/add")
+    public PhoneNumberCreateResponse addPhoneNumber(@RequestBody PhoneNumberCreateRequest req) {
+        PhoneNumber pn = phoneNumberService.addPhoneNumber(req);
+        return PhoneNumberCreateResponse.convert(pn);
+    }
+
+
