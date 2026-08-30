@@ -94,5 +94,8 @@ public class TaskService {
         return false;
     }
 
+    
+    public String generateTaskNumber() {
+        return "TASK-" + (int)(Math.random() * 10000);
     }
 }
