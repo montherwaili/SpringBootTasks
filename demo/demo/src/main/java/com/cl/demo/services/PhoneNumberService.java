@@ -11,5 +11,23 @@ import java.util.*;
 @Service
 public class PhoneNumberService {
 
+
+    public PhoneNumber addPhoneNumber(PhoneNumberCreateRequest req) {
+
+        if (req.getPhoneNumber() == null) {
+            return null;
+        }
+
+        PhoneNumber pn = new PhoneNumber();
+        pn.setId(UUID.randomUUID());
+        pn.setIsActive(Boolean.TRUE);
+        pn.setCreatedDate(new Date());
+        pn.setCountryCode(req.getCountryCode());
+        pn.setPhoneNumber(req.getPhoneNumber());
+
+
+        DemoApplication.PhoneNumber_List.add(pn);
+        return pn;
+    }
     }
 }
