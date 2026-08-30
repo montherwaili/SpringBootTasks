@@ -25,4 +25,12 @@ public class TaskController {
         return taskService.addTask(req);
     }
 
+
+    @GetMapping("/getById")
+    public TaskCreateResponse getTaskById(@RequestParam UUID uuid) {
+        Task task = taskService.getTaskById(uuid);
+        return TaskCreateResponse.convert(task);
+    }
+
+
 }
