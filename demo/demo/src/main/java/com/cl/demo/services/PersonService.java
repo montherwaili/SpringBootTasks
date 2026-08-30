@@ -13,8 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-
-
 @Service
 public class PersonService {
 
@@ -27,13 +25,13 @@ public class PersonService {
     public Map<String, String> addPerson(PersonCreateRequest requestObj) {
         Map<String, String> response = new HashMap<>();
 
-
-        if (requestObj.getPersonUserName() == null || requestObj.getPersonUserName().trim().isEmpty() ||
+        if (requestObj.getPersonFirstName() == null || requestObj.getPersonFirstName().trim().isEmpty() ||
+                requestObj.getPersonLastName() == null || requestObj.getPersonLastName().trim().isEmpty() ||
+                requestObj.getPersonUserName() == null || requestObj.getPersonUserName().trim().isEmpty() ||
                 requestObj.getPersonEmail() == null || requestObj.getPersonEmail().trim().isEmpty()) {
-            response.put("error", "Username or Email cannot be empty");
+            response.put("error", "Important fields (First Name, Last Name, Username, Email) cannot be empty");
             return response;
         }
-
 
         if (!checkIfUserNameOrEmailExists(requestObj.getPersonUserName(), requestObj.getPersonEmail())) {
             response.put("error", PERSON_USERNAME_OR_EMAIL_ALREADY_TAKEN);
@@ -52,7 +50,6 @@ public class PersonService {
         person.setName(getFullName(requestObj));
         person.setEmail(requestObj.getPersonEmail());
 
-
         if (requestObj.getPersonPhoneNumber() != null) {
             PhoneNumberCreateRequest phoneReq = new PhoneNumberCreateRequest();
             phoneReq.setCountryCode(requestObj.getPersonCountryCode());
@@ -65,7 +62,6 @@ public class PersonService {
         Boolean result = DemoApplication.Person_List.add(person);
 
         if (result) {
-
             DemoApplication.emails.add(requestObj.getPersonEmail());
             DemoApplication.userNames.add(requestObj.getPersonUserName());
             response.put("response", PERSON_SAVED);
@@ -76,7 +72,6 @@ public class PersonService {
     public Person getPersonById(String uuid) {
         if (uuid == null) return null;
         for (Person p : DemoApplication.Person_List) {
-
             if (p.getId().toString().equals(uuid) && Boolean.TRUE.equals(p.getIsActive())) {
                 return p;
             }
@@ -111,7 +106,6 @@ public class PersonService {
         return resultList;
     }
 
-
     private Boolean checkIfUserNameOrEmailExists(String userName, String email) {
         return !DemoApplication.emails.contains(email) && !DemoApplication.userNames.contains(userName);
     }
@@ -122,7 +116,6 @@ public class PersonService {
                 request.getPersonLastName();
     }
 
-
     private UserName getUserNameByCompare(UserName currentUserNameObj, PersonUpdateRequest updateRequest) {
         if (currentUserNameObj == null || updateRequest.getUserNameToUpdate() == null) {
             return currentUserNameObj;
@@ -130,19 +123,19 @@ public class PersonService {
 
         String finalCheckedName = HelperUtils.compare(currentUserNameObj.getActiveUserName(), updateRequest.getUserNameToUpdate());
 
+        if (!currentUserNameObj.getActiveUserName().equals(finalCheckedName)) {
+            if (!DemoApplication.userNames.contains(finalCheckedName)) {
+                List<String> userNameHistory = currentUserNameObj.getPrevUserNames();
+                if (userNameHistory == null) {
+                    userNameHistory = new ArrayList<>();
+                }
+                userNameHistory.add(currentUserNameObj.getActiveUserName());
+                currentUserNameObj.setPrevUserNames(userNameHistory);
 
-        if (!currentUserNameObj.getActiveUserName().equals(finalCheckedName) && DemoApplication.userNames.add(finalCheckedName)) {
-
-            List<String> userNameHistory = currentUserNameObj.getPrevUserNames();
-            if (userNameHistory == null) {
-                userNameHistory = new ArrayList<>();
+                DemoApplication.userNames.add(finalCheckedName);
+                currentUserNameObj.setActiveUserName(finalCheckedName);
             }
-
-
-            userNameHistory.add(currentUserNameObj.getActiveUserName());
-            currentUserNameObj.setPrevUserNames(userNameHistory);
-
-
+        } else {
             currentUserNameObj.setActiveUserName(finalCheckedName);
         }
 
