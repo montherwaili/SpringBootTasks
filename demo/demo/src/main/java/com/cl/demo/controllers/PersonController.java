@@ -1,6 +1,5 @@
 package com.cl.demo.controllers;
 
-
 import com.cl.demo.entities.Person;
 import com.cl.demo.requestobjects.PersonCreateRequest;
 import com.cl.demo.requestobjects.PersonUpdateRequest;
@@ -10,6 +9,7 @@ import com.cl.demo.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +27,6 @@ public class PersonController {
 
     @GetMapping("getById")
     public PersonCreateResponse getPersonById(@RequestParam String uuid) {
-
         return PersonCreateResponse.convert(personService.getPersonById(uuid));
     }
 
@@ -46,4 +45,12 @@ public class PersonController {
         return personService.deleteById(id);
     }
 
+    @GetMapping("getUsernameHistory")
+    public List<String> getUsernameHistory(@RequestParam String uuid) {
+        Person person = personService.getPersonById(uuid);
+        if (person != null && person.getUserName() != null) {
+            return person.getUserName().getPrevUserNames();
+        }
+        return new ArrayList<>();
+    }
 }
