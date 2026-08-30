@@ -84,5 +84,15 @@ public class TaskService {
         return task;
     }
 
+
+    public Boolean deleteById(UUID uuid) {
+        Task task = getTaskById(uuid);
+        if (task != null) {
+            task.setIsActive(Boolean.FALSE);
+            return true;
+        }
+        return false;
+    }
+
     }
 }
