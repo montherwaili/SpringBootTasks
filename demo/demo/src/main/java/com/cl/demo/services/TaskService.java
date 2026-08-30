@@ -67,5 +67,22 @@ public class TaskService {
         return activeTasks;
     }
 
+
+    public Task updateTask(TaskUpdateRequest req) {
+        Task task = getTaskById(req.getUuid());
+        if (task == null) return null;
+
+
+        task.setTitle(HelperUtils.compare(task.getTitle(), req.getTitleToUpdate()));
+        task.setDescription(HelperUtils.compare(task.getDescription(), req.getDescriptionToUpdate()));
+        task.setTaskStatus(HelperUtils.compare(task.getTaskStatus(), req.getTaskStatusToUpdate()));
+        task.setDueDate(HelperUtils.compare(task.getDueDate(), req.getDueDateToUpdate()));
+        task.setIsAssigned(HelperUtils.compare(task.getIsAssigned(), req.getIsAssignedToUpdate()));
+
+
+        task.setUpdatedDate(new Date());
+        return task;
+    }
+
     }
 }
