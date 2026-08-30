@@ -1,6 +1,7 @@
 package com.cl.demo;
 
 import com.cl.demo.entities.Person;
+import com.cl.demo.entities.PhoneNumber;
 import com.cl.demo.entities.Task;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
