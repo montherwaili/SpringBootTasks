@@ -33,3 +33,10 @@ public class PhoneNumberController {
     }
 
 
+    @GetMapping("/getAll")
+    public List<PhoneNumberCreateResponse> getAllPhoneNumbers() {
+        List<PhoneNumber> pns = phoneNumberService.getAllPhoneNumbers();
+        return PhoneNumberCreateResponse.convert(pns);
+    }
+
+
