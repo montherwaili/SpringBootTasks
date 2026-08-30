@@ -46,3 +46,9 @@ public class PhoneNumberController {
         return PhoneNumberUpdateResponse.convert(pn);
     }
 
+    
+    @DeleteMapping("/deleteById")
+    public Boolean deleteById(@RequestParam UUID id) {
+        return phoneNumberService.deleteById(id);
+    }
+}
