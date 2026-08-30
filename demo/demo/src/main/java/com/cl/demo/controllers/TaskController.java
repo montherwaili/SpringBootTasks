@@ -45,7 +45,7 @@ public class TaskController {
         return TaskUpdateResponse.convert(task);
     }
 
-    
+
     @DeleteMapping("/deleteById")
     public Boolean deleteById(@RequestParam UUID id) {
         return taskService.deleteById(id);
