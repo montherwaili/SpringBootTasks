@@ -40,3 +40,9 @@ public class PhoneNumberController {
     }
 
 
+    @PutMapping("/update")
+    public PhoneNumberUpdateResponse updatePhoneNumber(@RequestBody PhoneNumberUpdateRequest req) {
+        PhoneNumber pn = phoneNumberService.updatePhoneNumber(req);
+        return PhoneNumberUpdateResponse.convert(pn);
+    }
+
