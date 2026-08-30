@@ -29,5 +29,17 @@ public class PhoneNumberService {
         DemoApplication.PhoneNumber_List.add(pn);
         return pn;
     }
+
+
+    public PhoneNumber getPhoneNumberById(UUID uuid) {
+        if (uuid == null) return null;
+        for (PhoneNumber p : DemoApplication.PhoneNumber_List) {
+
+            if (p.getId().equals(uuid) && Boolean.TRUE.equals(p.getIsActive())) {
+                return p;
+            }
+        }
+        return null;
+    }
     }
 }
